@@ -2,7 +2,7 @@ const { execSync } = require('child_process');
 
 // regular expression to enforce branch naming convention
 const branchPattern =
-  /^(feat|fix|docs|style|refactor|test|build|ci|chore)\/(root|angular-material|icons|interactions|ionic-5|ionic-6|ionic-7|ionic-8|shared|tokens|utilities|web-components)\/[a-z0-9\-]+$/;
+  /^(feat|fix|docs|style|refactor|test|build|ci|chore)\/(root|angular-material-14|icons|interactions|ionic-8|tokens|web-components)\/[a-z0-9\-]+$/;
 
 // get the current branch name
 const branchName = execSync('git rev-parse --abbrev-ref HEAD')
