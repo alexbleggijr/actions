@@ -1,0 +1,12 @@
+{
+  "name": "@templarios/source",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "check-branch-name": "node .scripts/check-branch-name.js"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}

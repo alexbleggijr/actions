@@ -1,0 +1,43 @@
+name: pull request closed to main
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+
+jobs:
+  on-pr-closed-to-main:
+     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+
+      - name: Set up Node.js (for Commitizen and cz-conventional-changelog)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm install -g commitizen cz-conventional-changelog
+
+      - name: Generate Changelog
+        run: |
+          npx cz-conventional-changelog -i dist/CHANGELOG.md -s
+
+      - name: Commit and push changelog
+        run: |
+          git add CHANGELOG.md
+          git commit -m "Update changelog for PR merge: ${{ github.event.pull_request.title }}"
+          git push
+
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
